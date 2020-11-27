@@ -62,10 +62,9 @@ def get_traces(path, files):
         for line in tfile:
             if(line[0]!="#"):
                 raw_data = int(line)
-                # raw_data = raw_data*0.0000141351
+                # raw_data = raw_data* 0.0000141351 
+                raw_data = raw_data* 0.00141351 
                 trace.append(raw_data)
-
-        # trace = np.array(trace)
 
         temp_file_name = f.split("_")
         id = int(temp_file_name[4][2:])
@@ -91,7 +90,7 @@ def split_dict(d, ratio):
 
 #-------------------------------------------------------------------------------
 
-def presprocess(d1, d2):
+def preprocess(d1, d2):
     trace1 = []
     trace2 = []
 
@@ -113,9 +112,12 @@ def presprocess(d1, d2):
             temp2.append(t2[time_t2])
         trace2.append(temp2)
 
+    # print(trace1[0][0])
+    trace1 = np.power(trace1, 3)
+    # print(trace1[0][0])
+    trace2 = np.power(trace2, 3)
+
     return np.array(trace1), np.array(trace2)
-
-
 
 #-------------------------------------------------------------------------------
 
@@ -143,7 +145,7 @@ def MF_TVLA(trace1, trace2):
     mean_trace1 = np.mean(trace1, axis = 1)
     mean_trace2 = np.mean(trace2, axis = 1)
 
-    # ValueError: operands could not be broadcast together with shapes (3253,10000) (3253,) 
+    # trace1.shape==(3253,10000) & mean_trace1==(3253,) 
 
     for i in range(len(mean_trace1)):
 
@@ -164,37 +166,33 @@ def MF_TVLA(trace1, trace2):
 
     return t_test
 
-
-
 #-------------------------------------------------------------------------------
 
+def run(path1, path2, name):
+    files1 = os.listdir(path1)
+    files2 = os.listdir(path2)
 
-if __name__ == "__main__":
+    t1 = get_traces(path1,files1)
+    t2 = get_traces(path2,files2)
     
-    path = "sample2/"
-    files = os.listdir(path)
-
-    t = get_traces(path,files)
-
-    # plt.plot(t[180076])
-    # plt.ylabel('Some Traces')
-    # plt.show(block=False)
-
-    print("length of t is: " + str(len(t)))
-    
-    t1, t2 = split_dict(t, 0.5)
-    t1, t2 = presprocess(t1, t2)
-    # my_tvla = TVLA(t1, t2) 
-    my_tvla = MF_TVLA(t1, t2) 
+    t1, t2 = preprocess(t1, t2)
+    my_tvla = TVLA(t1, t2) 
 
 
-    # plt.hist(my_tvla, bins = 35)
     plt.plot(my_tvla)
     plt.axhline(y =  4.5, color='r', linestyle='-')
     plt.axhline(y = -4.5, color='r', linestyle='-')
-    plt.ylabel('Some Traces')
-    plt.show(block=False)
+    plt.ylabel(name)
+    plt.savefig("results/"+name+".png") 
+    # print("saved " + name + ".png")
 
-    input()
+
+# if __name__ == "__main__":
+    
+#     path1 = "./p1/"
+#     path2 = "./p2/"
+    
+#     run(path1, path2, "abc")
+
 #-------------------------------------------------------------------------------
 
