@@ -4,13 +4,13 @@ import subprocess
 from tqdm import tqdm
 import TVLA
 
-source_dir = "/home/deepinder/Desktop/Academics/Semester_7/CE_proj/sample/"
+source_dir = ""
 target_1 = "p1/"
 target_2 = "p2/"
 m = 4
 
 
-def riro_round_5_bit_i(bit, test):
+def run_test(bit, test):
     directory = os.fsencode(source_dir)
 
     subprocess.run(['mkdir', target_1])
@@ -98,10 +98,10 @@ if __name__ == "__main__":
     test = int(input("Test: "))
     if (test == 3 or test == 4):
         byte = int(input("Comparison byte value: "))
-        riro_round_5_bit_i(byte, test)
+        run_test(byte, test)
     else:
         bit = int(input("Bit: "))
-        riro_round_5_bit_i(bit, test)
+        run_test(bit, test)
 
 
 
