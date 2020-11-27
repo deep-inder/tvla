@@ -112,10 +112,13 @@ def preprocess(d1, d2):
             temp2.append(t2[time_t2])
         trace2.append(temp2)
 
+
+    #ORDER of attack 
     # print(trace1[0][0])
-    trace1 = np.power(trace1, 3)
+    trace1 = np.power(trace1, 1)
     # print(trace1[0][0])
-    trace2 = np.power(trace2, 3)
+
+    trace2 = np.power(trace2, 1)
 
     return np.array(trace1), np.array(trace2)
 
