@@ -112,9 +112,9 @@ def preprocess(d1, d2):
             temp2.append(t2[time_t2])
         trace2.append(temp2)
 
-    print(trace1[0][0])
+    # print(trace1[0][0])
     trace1 = np.power(trace1, 3)
-    print(trace1[0][0])
+    # print(trace1[0][0])
     trace2 = np.power(trace2, 3)
 
     return np.array(trace1), np.array(trace2)
@@ -168,37 +168,31 @@ def MF_TVLA(trace1, trace2):
 
 #-------------------------------------------------------------------------------
 
-if __name__ == "__main__":
-    
-    path1 = "data/proc_20000/p1/"
-    path2 = "data/proc_20000/p2/"
-    
+def run(path1, path2, name):
     files1 = os.listdir(path1)
     files2 = os.listdir(path2)
 
     t1 = get_traces(path1,files1)
     t2 = get_traces(path2,files2)
-
-    # plt.plot(t[180076])
-    # plt.ylabel('Some Traces')
-    # plt.show(block=False)
-
-    print("length of t1 is: " + str(len(t1)))
-    print("length of t2 is: " + str(len(t2)))
     
-    # t1, t2 = split_dict(t, 0.5)
     t1, t2 = preprocess(t1, t2)
     my_tvla = TVLA(t1, t2) 
-    # my_tvla = MF_TVLA(t1, t2) 
 
 
-    # plt.hist(my_tvla, bins = 35)
     plt.plot(my_tvla)
     plt.axhline(y =  4.5, color='r', linestyle='-')
     plt.axhline(y = -4.5, color='r', linestyle='-')
-    plt.ylabel('Some Traces')
-    plt.show(block=False)
+    plt.ylabel(name)
+    plt.savefig(name+".png") 
+    print("saved " + name + ".png")
 
-    input()
+
+if __name__ == "__main__":
+    
+    path1 = "./p1/"
+    path2 = "./p2/"
+    
+    run(path1, path2, "abc")
+
 #-------------------------------------------------------------------------------
 
