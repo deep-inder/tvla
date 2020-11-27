@@ -114,10 +114,10 @@ def preprocess(d1, d2):
 
 
     #ORDER of attack 
+
     # print(trace1[0][0])
     trace1 = np.power(trace1, 1)
     # print(trace1[0][0])
-
     trace2 = np.power(trace2, 1)
 
     return np.array(trace1), np.array(trace2)
@@ -185,7 +185,12 @@ def run(path1, path2, name):
     plt.plot(my_tvla)
     plt.axhline(y =  4.5, color='r', linestyle='-')
     plt.axhline(y = -4.5, color='r', linestyle='-')
-    plt.ylabel(name)
+
+
+    plt.title("t-statistics vs time steps - "+ name)
+    plt.xlabel("Time Steps")
+    plt.ylabel("t-statistic values")
+
     plt.savefig("results/"+name+".png") 
     # print("saved " + name + ".png")
 
