@@ -1,9 +1,9 @@
 # Test Vector Leakage Assessment (TVLA) methodology implementation
 
-This repository contains an implementation to conduct the specific leakage tests as per the TVLA methodology, given the CSV files for collected power traces.
+This repository contains an implementation to conduct the specific leakage tests as per the TVLA methodology, given the CSV files for collected power traces. The details of these tests have been taken from the following paper: **Becker, G. et al. “Test Vector Leakage Assessment ( TVLA ) methodology in practice” (2013).**
 
 ## File Descriptions
-- aes.py: Contains a software implementation of AES-128.
+- aes.py: Contains a software implementation of AES-128. Code borrowed from the repo: https://github.com/boppreh/aes
 - TVLA.py: Contains the code that analyses the power traces and generates the graphs
 - test.py: Main file to be run to conduct the test
 
