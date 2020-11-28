@@ -4,13 +4,13 @@ import subprocess
 from tqdm import tqdm
 import TVLA
 
-source_dir = ""
+source_dir = "/home/deepinder/Desktop/Academics/Semester_7/CE_proj/sample/"
 target_1 = "p1/"
 target_2 = "p2/"
 m = 4
 
 
-def run_test(bit, test):
+def run_test(bit, test, order):
     directory = os.fsencode(source_dir)
 
     subprocess.run(['mkdir', target_1])
@@ -89,19 +89,20 @@ def run_test(bit, test):
         else:
             print("Error in decryption")
 
-    TVLA.run(target_1, target_2, str(bit)+"_"+str(test))
+    TVLA.run(target_1, target_2, str(bit)+"_"+str(test), order)
 
     subprocess.run(['rm', '-r', target_1])
     subprocess.run(['rm', '-r', target_2])
 
 if __name__ == "__main__":
     test = int(input("Test: "))
+    order = int(input("Attack Order: "))
     if (test == 3 or test == 4):
         byte = int(input("Comparison byte value: "))
-        run_test(byte, test)
+        run_test(byte, test, order)
     else:
         bit = int(input("Bit: "))
-        run_test(bit, test)
+        run_test(bit, test, order)
 
 
 

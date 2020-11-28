@@ -90,7 +90,7 @@ def split_dict(d, ratio):
 
 #-------------------------------------------------------------------------------
 
-def preprocess(d1, d2):
+def preprocess(d1, d2, attack_order):
     trace1 = []
     trace2 = []
 
@@ -116,9 +116,9 @@ def preprocess(d1, d2):
     #ORDER of attack 
 
     # print(trace1[0][0])
-    trace1 = np.power(trace1, 1)
+    trace1 = np.power(trace1, attack_order)
     # print(trace1[0][0])
-    trace2 = np.power(trace2, 1)
+    trace2 = np.power(trace2, attack_order)
 
     return np.array(trace1), np.array(trace2)
 
@@ -171,14 +171,14 @@ def MF_TVLA(trace1, trace2):
 
 #-------------------------------------------------------------------------------
 
-def run(path1, path2, name):
+def run(path1, path2, name, attack_order):
     files1 = os.listdir(path1)
     files2 = os.listdir(path2)
 
     t1 = get_traces(path1,files1)
     t2 = get_traces(path2,files2)
     
-    t1, t2 = preprocess(t1, t2)
+    t1, t2 = preprocess(t1, t2, attack_order)
     my_tvla = TVLA(t1, t2) 
 
 
@@ -191,7 +191,7 @@ def run(path1, path2, name):
     plt.xlabel("Time Steps")
     plt.ylabel("t-statistic values")
 
-    plt.savefig("results/"+name+".png") 
+    plt.savefig("results/first_order_"+name+".png") 
     # print("saved " + name + ".png")
 
 
